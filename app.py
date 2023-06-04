@@ -106,10 +106,14 @@ class ProxyViewer(Thread):
 if __name__ == '__main__':
     print(f'> Close this app using instructions or some browsers will remaing in memory.')
 
-    load_dotenv()
-    twitch_username = os.getenv('TWITCH_CHANNEL_URL')
-    used_proxies = os.getenv('USED_PROXIES') # 1 proxy -> 1 browser windows -> 1 thread
-    views_x_proxy = os.getenv('VIEWS_X_PROXY')
+    try:
+        load_dotenv()
+        twitch_username = os.getenv('TWITCH_CHANNEL_URL')
+        used_proxies = int(os.getenv('USED_PROXIES')) # 1 proxy -> 1 browser windows -> 1 thread
+        views_x_proxy = int(os.getenv('VIEWS_X_PROXY'))
+    except Exception as err:
+        print(str(err))
+        exit()
     
     # To stop all threads
     event = Event()
